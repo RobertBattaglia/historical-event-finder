@@ -2,6 +2,10 @@ import React from 'react';
 import ReactPaginate from 'react-paginate';
 
 const Paginate = props => {
+  const handleChange = ({ selected }) => {
+    props.handlePage(selected + 1);
+  };
+
   return (
     <React.Fragment>
       <ReactPaginate
@@ -12,9 +16,7 @@ const Paginate = props => {
         pageCount={props.pageCount}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
-        onPageChange={() => {
-          console.log('page clicked');
-        }}
+        onPageChange={handleChange}
         containerClassName={'pagination'}
         subContainerClassName={'pages pagination'}
         activeClassName={'active'}
