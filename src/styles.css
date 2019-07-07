@@ -1,0 +1,21 @@
+html body {
+  margin: 0% 18%;
+}
+
+.pagination {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  list-style: none;
+}
+
+.pagination a {
+  padding: 7px;
+  cursor: pointer;
+  border: solid 1.5px;
+  margin: 1px;
+}
+
+.active {
+  color: aquamarine;
+}

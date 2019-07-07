@@ -22,11 +22,13 @@
     "react-paginate": "^6.3.0"
   },
   "devDependencies": {
-    "webpack": "^4.35.2",
-    "webpack-cli": "^3.3.5",
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
-    "@babel/core": "^7.5.0",
-    "@babel/preset-env": "^7.5.0"
+    "css-loader": "^3.0.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
   }
 }
