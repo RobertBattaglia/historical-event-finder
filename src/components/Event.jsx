@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class Event extends Component {
   constructor(props) {
@@ -6,14 +7,23 @@ export default class Event extends Component {
     this.state = {
       edit: false,
       description: this.props.description,
-      date: this.props.date
+      date: this.props.date,
+      id: this.props.id
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleCancelClick = this.handleCancelClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleClick(e) {
+  handleClick() {
     this.setState({ edit: !this.state.edit });
+  }
+  handleCancelClick() {
+    this.setState({
+      edit: !this.state.edit,
+      date: this.props.date,
+      description: this.props.description
+    });
   }
 
   handleInputChange(e) {
@@ -27,11 +37,18 @@ export default class Event extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.editEvent(
-      { date: this.state.date, description: this.state.description },
-      this.props.index
-    );
-    this.setState({ edit: false });
+    axios
+      .patch(`/events/${this.state.id}`, {
+        date: this.state.date,
+        description: this.state.description
+      })
+      .then(() => {
+        this.props.editEvent(this.state.id, this.props.index);
+        this.setState({ edit: false });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -39,8 +56,8 @@ export default class Event extends Component {
       <div className="event">
         {!this.state.edit ? (
           <React.Fragment>
-            <h3>{this.props.date}</h3>
-            <p>{this.props.description}</p>
+            <h3>{this.state.date}</h3>
+            <p>{this.state.description}</p>
             <button onClick={this.handleClick}>Edit</button>
           </React.Fragment>
         ) : (
@@ -64,7 +81,7 @@ export default class Event extends Component {
                 submit
               </button>
             </form>
-            <button onClick={this.handleClick}>Cancel</button>
+            <button onClick={this.handleCancelClick}>Cancel</button>
           </React.Fragment>
         )}
       </div>

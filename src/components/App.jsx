@@ -35,10 +35,12 @@ class App extends Component {
       });
   }
 
-  editEvent(event, index) {
+  editEvent(id, index) {
     const events = this.state.events.slice();
-    events.splice(index, 1, event);
-    this.setState({ events });
+    axios.get(`/events/${id}`).then(({ data }) => {
+      events.splice(index, 1, data);
+      this.setState({ events });
+    });
   }
 
   render() {
