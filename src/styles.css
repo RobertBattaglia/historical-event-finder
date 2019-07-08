@@ -2,6 +2,7 @@ html body {
   margin: 0% 18%;
 }
 
+/* Pagination */
 .pagination {
   display: flex;
   align-items: baseline;
@@ -18,4 +19,13 @@ html body {
 
 .active {
   color: aquamarine;
+}
+
+/* Event */
+.input {
+  display: block;
+}
+
+.event {
+  margin-bottom: 10px;
 }

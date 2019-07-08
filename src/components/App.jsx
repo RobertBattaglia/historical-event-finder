@@ -8,9 +8,10 @@ import Styles from '../styles.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { events: [], query: null, pageCount: null };
+    this.state = { events: null, query: null, pageCount: null };
     this.getEvents = this.getEvents.bind(this);
     this.getPageEvents = this.getPageEvents.bind(this);
+    this.editEvent = this.editEvent.bind(this);
   }
 
   getEvents(query) {
@@ -30,8 +31,14 @@ class App extends Component {
     axios
       .get(`/events?q=${this.state.query}&_page=${page}&_limit=5`)
       .then(({ data }) => {
-        this.setState({ events: data });
+        this.setState({ events: null }), this.setState({ events: data });
       });
+  }
+
+  editEvent(event, index) {
+    const events = this.state.events.slice();
+    events.splice(index, 1, event);
+    this.setState({ events });
   }
 
   render() {
@@ -45,7 +52,10 @@ class App extends Component {
             pageCount={this.state.pageCount}
           />
         ) : null}
-        <Events events={this.state.events} />
+        {this.state.query ? <h2>{this.state.query}</h2> : null}
+        {this.state.events ? (
+          <Events events={this.state.events} editEvent={this.editEvent} />
+        ) : null}
       </React.Fragment>
     );
   }
